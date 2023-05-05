@@ -1,0 +1,73 @@
+{
+  "name": "Python Env For Gitlab",
+  "mounts": [
+    "source=${localWorkspaceFolder}/,target=/root/project,type=bind,consistency=cached",
+  ],
+  "dockerFile": "Dockerfile",
+  "appPort": [
+    "7777:7777"
+  ],
+  "runArgs": [
+    "--restart=always",
+    "--shm-size=16G"
+  ],
+  "postStartCommand": "cd /root/project/ && bash setup.sh && bash",
+  "workspaceFolder": "/root/project/",
+  "shutdownAction": "none",
+  "remoteUser": "root",
+  "settings": {
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "/bin/bash"
+      }
+    },
+    "python.defaultInterpreterPath": "/root/project/.venv",
+    "python.analysis.extraPaths": [
+      "src"
+    ],
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.pycodestyleEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "[python]": {
+      "editor.rulers": [
+        88
+      ],
+      "editor.tabSize": 4,
+      "editor.defaultFormatter": "ms-python.python",
+      "editor.formatOnSave": true,
+      "editor.formatOnPaste": false,
+      "editor.formatOnType": false,
+      "editor.insertSpaces": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+      }
+    },
+    "isort.args": [
+      "--known-local-folder",
+      "src"
+    ]
+  },
+  "extensions": [
+    "ryu1kn.partial-diff",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "yzhang.markdown-all-in-one",
+    "mrmlnc.vscode-remark",
+    "davidanson.vscode-markdownlint",
+    "executablebookproject.myst-highlight",
+    "trond-snekvik.simple-rst",
+    "bungcip.better-toml",
+    "redhat.vscode-yaml",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-toolsai.jupyter",
+    "ms-toolsai.jupyter-keymap",
+    "ms-toolsai.jupyter-renderers",
+    "njpwerner.autodocstring"
+  ]
+}

@@ -1,0 +1,45 @@
+# See: https://stackoverflow.com/collectives/articles/71270196/how-to-use-pre-commit-to-automatically-correct-commits-and-merge-requests-with-g
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0 # this is optional, use `pre-commit autoupdate` to get the latest rev!
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: isort
+        name: RUN isort
+        entry: poetry run isort
+        require_serial: true
+        language: system
+        types: [python]
+        args: ["--filter-files"]
+
+      - id: black
+        name: RUN black
+        entry: poetry run black
+        language: system
+        require_serial: true
+        types: [python]
+
+      - id: flake8
+        name: RUN flake8
+        language: system
+        entry: poetry run flake8
+        require_serial: true
+        types: [python]
+
+      - id: nbqa-isort
+        name: RUN isort in notebook
+        language: system
+        entry: poetry run nbqa isort
+        types: [jupyter]
+
+      - id: nbqa-black
+        name: RUN black in notebook
+        language: system
+        entry: poetry run nbqa black
+        types: [jupyter]

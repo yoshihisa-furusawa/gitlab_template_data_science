@@ -12,14 +12,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 ARG USER_NAME=root
 ARG HOMEDIR=/root/
 
-# RUN sed -i'' 's/archive.ubuntu.com/jp.archive.ubuntu.com/' /etc/apt/sources.list
-RUN sed -i.org -e 's|archive.ubuntu.com|ubuntutym.u-toyama.ac.jp|g' /etc/apt/sources.list
+RUN sed -i'' 's/archive.ubuntu.com/jp.archive.ubuntu.com/' /etc/apt/sources.list
 
 # delete cuda log files
 RUN rm -rf /etc/apt/sources.list.d/cuda.list
 RUN rm -rf /etc/apt/sources.list.d/nvidia-ml.list
 
-# github setting
+# git command
 RUN echo "source /usr/share/bash-completion/completions/git" >> ~/.bashrc
 
 # apt install
@@ -38,17 +37,17 @@ RUN apt-get install -y python3.9 python3.9-dev python3-venv python3.9-venv pytho
 
 WORKDIR root
 
-# poetry setting
+# poetry
 RUN curl -sSL https://install.python-poetry.org | python3.9 - --version 1.2.0
 RUN /root/.local/bin/poetry self update
 RUN /root/.local/bin/poetry config virtualenvs.in-project true
 
-# python setting
+# python path
 RUN echo export PATH="$PATH:/root/.local/bin/" >> ~/.bashrc \
     && echo alias python=python3.9 >> ~/.bashrc \
     && echo alias python3=python3.9 >> ~/.bashrc
 
-# set japanese format
+# japanese font
 RUN wget https://www.dropbox.com/s/zb7lub5c3zc8xgm/meiryo.lzh
 RUN apt-get install -y lhasa
 RUN lha x meiryo.lzh
